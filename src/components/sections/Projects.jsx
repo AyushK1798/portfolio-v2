@@ -1,7 +1,15 @@
 import { RevealOnScroll } from "../RevealOnScroll";
+import { Link } from "react-router-dom"; // ✅ Import Link
 
 export const Projects = () => {
   const projectList = [
+    {
+      title: "ZingaSuite",
+      description:
+        "ZingaSuite is a suite of products that includes ZingaProject (Project Management), Zingashop (E-commerce Enabler), and Zingalify. It is designed to provide businesses with an integrated suite of tools to manage and grow their online presence.",
+      technologies: ["ReactJs", "Redux", "Chart.js", "REST API"],
+      link: "#", // No link available
+    },
     {
       title: "TechBrove E-Commerce",
       description:
@@ -10,11 +18,18 @@ export const Projects = () => {
       link: "https://techbrove-ecom.vercel.app/",
     },
     {
+      title: "Quirky Ink",
+      description:
+        "Designed and developed a responsive portfolio website for Quirky Ink, a brand specializing in exquisite wall art.",
+      technologies: ["React"],
+      link: "https://quirky-ink.vercel.app/",
+    },
+    {
       title: "School Admin Dashboard",
       description:
         "An admin panel for schools to manage students, attendance, assignments, and online exams.",
       technologies: ["React", "React-Bootstrap", "Axios", "REST API"],
-      link: "#",
+      link: "/projects/school-admin-dashboard", // ✅ Internal Route
     },
     {
       title: "AI Chat Modal",
@@ -31,18 +46,11 @@ export const Projects = () => {
       link: "https://3-d-chair-configurator-7xaz.vercel.app/",
     },
     {
-      title: "MERN Book-store",
+      title: "Repair-plus",
       description:
-        "A MERN-based book management system with full CRUD functionalities for book inventory.",
-      technologies: ["MongoDB", "Express.js", "React", "Node.js"],
-      link: "https://mern-book-store-frontend.vercel.app/",
-    },
-    {
-      title: "Real-Time Chat App",
-      description:
-        "A scalable chat application with real-time messaging and group chat support.",
-      technologies: ["Socket.IO", "Express", "React", "Redis"],
-      link: "#",
+        "A website offering device repair services enables users to book repair appointments and view the locations of their different service centers on a map for easy access.",
+      technologies: ["ReactJs", "Axios", "REST API"],
+      link: "/projects/repair-plus", // ✅ Internal Route
     },
   ];
 
@@ -60,7 +68,8 @@ export const Projects = () => {
             {projectList.map((project, index) => (
               <div
                 key={index}
-                className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition"
+                className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 
+                hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition"
               >
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-gray-400 mb-4">{project.description}</p>
@@ -68,8 +77,8 @@ export const Projects = () => {
                   {project.technologies.map((tech, key) => (
                     <span
                       key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
-                                    hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all"
+                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm 
+                      hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all"
                     >
                       {tech}
                     </span>
@@ -77,14 +86,23 @@ export const Projects = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   {project.link !== "#" ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                    >
-                      View Project →
-                    </a>
+                    project.link.startsWith("http") ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 transition-colors my-4"
+                      >
+                        View Project →
+                      </a>
+                    ) : (
+                      <Link
+                        to={project.link} // ✅ Use Link for internal routing
+                        className="text-blue-400 hover:text-blue-300 transition-colors my-4"
+                      >
+                        View Project →
+                      </Link>
+                    )
                   ) : (
                     <span className="text-gray-500 italic">Coming Soon</span>
                   )}
